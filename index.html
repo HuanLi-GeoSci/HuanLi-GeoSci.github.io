@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Huan Li | Satellite precipitation and cloud remote sensing</title>
+<meta name="description" content="Huan Li studies precipitation and warm clouds with satellites and radar: variational precipitation analysis, infrared retrievals, and drizzle from EarthCARE, GPM and ARM observations.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+    --ink: #14212B;
+    --ink-soft: #4A5A66;
+    --overcast: #E9EEF0;
+    --paper: #F8FAFA;
+    --marine: #1B6F86;
+    --marine-deep: #12303F;
+    --virga: #C9822B;
+    --rule: #C5D0D5;
+    --serif: "Spectral", Georgia, "Times New Roman", serif;
+    --sans: "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    --measure: 64ch;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--overcast); color: var(--ink);
+    font-family: var(--sans); font-size: 1.0625rem; line-height: 1.6;
+  }
+  a { color: var(--marine); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+  a:hover { color: var(--marine-deep); }
+  a:focus-visible, .skip:focus-visible { outline: 3px solid var(--virga); outline-offset: 3px; border-radius: 2px; }
+  .skip { position: absolute; left: -999px; top: 0; background: var(--paper); padding: .5rem .75rem; }
+  .skip:focus { left: .5rem; top: .5rem; z-index: 10; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+
+
+  /* Hero: schematic radar curtain */
+  .curtain { background: var(--paper); border-bottom: 1px solid var(--rule); }
+  .curtain .wrap { padding-top: 1.75rem; padding-bottom: 1rem; }
+  .curtain-frame { position: relative; }
+  .curtain canvas { display: block; width: 100%; height: 250px; }
+  .curtain-reveal { clip-path: inset(0 0 0 0); animation: sweep 1.9s cubic-bezier(.2,.6,.2,1) both; }
+  @keyframes sweep { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+  @media (prefers-reduced-motion: reduce) { .curtain-reveal { animation: none; } html { scroll-behavior: auto; } }
+  .curtain figcaption { margin-top: .5rem; color: var(--ink-soft); font-size: .875rem; max-width: 78ch; }
+
+  /* Identity */
+  .identity { padding-top: 2.75rem; padding-bottom: 2.5rem; }
+  .identity-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2rem 3rem; align-items: start; }
+  h1 { font-family: var(--serif); font-weight: 300; font-size: clamp(2.7rem, 6.2vw, 4.4rem); line-height: 1.02; letter-spacing: -0.015em; margin: 0 0 1rem; }
+  .lead { font-family: var(--serif); font-size: clamp(1.2rem, 2.1vw, 1.45rem); line-height: 1.45; max-width: 40ch; margin: 0 0 .9rem; }
+  .where { color: var(--ink-soft); margin: 0; }
+  .links { list-style: none; margin: .4rem 0 0; padding: 0; display: grid; gap: .45rem; font-weight: 500; }
+  .about { max-width: var(--measure); margin: 2rem 0 0; }
+
+  nav.sections { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); background: var(--overcast); position: sticky; top: 0; z-index: 5; }
+  nav.sections ul { list-style: none; margin: 0; padding: .7rem 0; display: flex; flex-wrap: wrap; gap: .35rem 1.6rem; font-size: .95rem; }
+  nav.sections a { text-decoration: none; color: var(--ink); }
+  nav.sections a:hover { color: var(--marine); text-decoration: underline; }
+
+  section { padding: 3rem 0 1rem; }
+  h2 { font-family: var(--serif); font-weight: 500; font-size: 1.85rem; line-height: 1.15; margin: 0 0 1.6rem; }
+  h3 { font-family: var(--serif); font-weight: 500; font-size: 1.35rem; line-height: 1.25; margin: 0 0 .25rem; }
+
+  .study { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .92fr); gap: 1.5rem 3rem; padding: 2rem 0; border-top: 1px solid var(--rule); align-items: start; }
+  .study:first-of-type { border-top: 0; padding-top: 0; }
+  .study.no-figure { grid-template-columns: minmax(0, 1fr); }
+  .study-text { max-width: var(--measure); }
+  .study .when { color: var(--ink-soft); font-size: .95rem; margin: 0 0 .9rem; }
+  .study p { margin: 0 0 .9rem; }
+  .study .source { font-size: .95rem; color: var(--ink-soft); }
+  .study figure { margin: 0; }
+  .plate { background: #fff; border: 1px solid var(--rule); padding: .6rem; }
+  .plate img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+  .study figcaption { margin-top: .55rem; font-size: .875rem; color: var(--ink-soft); }
+
+  .columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 3rem; }
+  .refs { list-style: none; margin: 0; padding: 0; max-width: 78ch; }
+  .refs li { margin: 0 0 1rem; padding-left: 1.4rem; text-indent: -1.4rem; }
+  .refs .group { font-family: var(--serif); font-size: 1.1rem; font-weight: 500; text-indent: 0; padding-left: 0; margin-top: 1.6rem; }
+  .plain { list-style: none; margin: 0; padding: 0; }
+  .plain li { margin: 0 0 .7rem; }
+  .plain .yr { color: var(--ink-soft); }
+
+  footer { margin-top: 3rem; border-top: 1px solid var(--rule); background: var(--paper); }
+  footer .wrap { padding-top: 2rem; padding-bottom: 2.5rem; display: flex; flex-wrap: wrap; gap: .5rem 2rem; justify-content: space-between; color: var(--ink-soft); font-size: .95rem; }
+
+  @media (max-width: 820px) {
+    .identity-grid, .study, .columns { grid-template-columns: minmax(0, 1fr); }
+    .links { display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; }
+    .curtain canvas { height: 180px; }
+    nav.sections { position: static; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#research">Skip to research</a>
+
+<header>
+  <div class="curtain">
+    <div class="wrap">
+      <figure style="margin:0">
+        <div class="curtain-frame curtain-reveal">
+          <canvas id="curtain" role="img" aria-label="Schematic time–height radar view of a marine stratocumulus layer about 1.2 to 1.5 kilometers above the sea. Streaks of drizzle fall from the thicker parts of the cloud and fade out before reaching the surface."></canvas>
+        </div>
+        <figcaption>Schematic, not data: a marine stratocumulus deck as a vertically pointing cloud radar sees it over a few hours. Drizzle forms in the thicker parts of the cloud, and most of it evaporates before it reaches the sea surface.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="wrap identity">
+    <div class="identity-grid">
+      <div>
+        <h1>Huan Li</h1>
+        <p class="lead">I study rain and clouds from space and from the ground: how satellites estimate precipitation, where those estimates fail, and what radars can tell us about the light rain they miss.</p>
+        <p class="where">Remote sensing scientist, Washington, DC area</p>
+      </div>
+      <ul class="links" aria-label="Contact and profiles">
+        <li><a href="mailto:Dr.LiHuan@gmail.com">Email</a></li>
+        <li><a href="https://github.com/HuanLi-GeoSci">GitHub</a></li>
+        <!-- Add when ready:
+        <li><a href="https://orcid.org/0000-0000-0000-0000">ORCID</a></li>
+        <li><a href="CV_Huan_Li.pdf">CV (PDF)</a></li>
+        -->
+      </ul>
+    </div>
+    <p class="about">My doctoral and postdoctoral research merged satellite precipitation estimates with rain gauges using variational analysis. From 2018 to 2023, at the Earth System Science Interdisciplinary Center of the University of Maryland, I worked on warm rain and marine boundary-layer clouds with ground-based cloud radar, CloudSat, MODIS and VIIRS. My current work uses EarthCARE and GPM radar observations of drizzle and warm rain. I hold a Ph.D. in remote sensing from the Chinese Academy of Sciences and a B.S. in computer science.</p>
+  </div>
+</header>
+
+<nav class="sections" aria-label="Sections">
+  <div class="wrap">
+    <ul>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#grants">Grants and awards</a></li>
+      <li><a href="#education">Education</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <section id="research">
+    <div class="wrap">
+      <h2>Research</h2>
+
+      <article class="study no-figure">
+        <div class="study-text">
+          <h3>Marine drizzle from EarthCARE and the ARM Eastern North Atlantic site</h3>
+          <p class="when">2024 to present</p>
+          <p>I match EarthCARE cloud-radar overpasses of the ARM Eastern North Atlantic site, 201 between December 2024 and May 2026, with the ground-based KAZR radar, 1,585 radiosondes and ERA5. The aim is to check what the spaceborne radar sees against ground references, and to follow marine drizzle from its onset in cloud to its evaporation below cloud base under different weather regimes.</p>
+          <p>A companion analysis pairs GPM DPR with EarthCARE to measure how much warm rain falls below the DPR sensitivity floor. I am also developing a retrieval of air motion and drop fall speed from the EarthCARE Doppler measurements.</p>
+          <p class="source">First-author manuscript in preparation.</p>
+        </div>
+      </article>
+
+      <!-- Enable after the project exists and the repository is public:
+      <article class="study no-figure">
+        <div class="study-text">
+          <h3>Light-rain detection from passive microwave with radar labels</h3>
+          <p class="when">2026</p>
+          <p>A PyTorch model that detects light oceanic rain from GMI brightness temperatures, trained with W-band cloud-radar labels, split by orbit and compared with GPROF on held-out orbits. [results]</p>
+          <p class="source"><a href="#">Code and results on GitHub</a></p>
+        </div>
+      </article>
+      -->
+
+      <article class="study no-figure">
+        <div class="study-text">
+          <h3>Variational merging of gauge and satellite precipitation</h3>
+          <p class="when">2012 to 2018, Chinese Academy of Sciences and University of Oklahoma</p>
+          <p>An hourly, 10 km precipitation analysis over mainland China from China Meteorological Administration gauges and NOAA CMORPH. I developed and implemented the scheme: a cost function with a recursive filter that spreads observations to nearby grid points, a gradient derived with the adjoint technique, and quasi-Newton minimization.</p>
+          <p>Cross-validation against withheld gauges showed that the analysis improves rainfall estimates over CMORPH and bias-adjusted CMORPH, particularly in data-sparse regions. I continued the work as principal investigator of National Natural Science Foundation of China grant 41501471.</p>
+          <p class="source">Li et al. (2015), <a href="https://doi.org/10.1002/2015JD023710"><cite>Journal of Geophysical Research: Atmospheres</cite>, doi:10.1002/2015JD023710</a>. With Y. Hong, P. Xie (NOAA CPC), J. Gao (NOAA NSSL), Z. Niu, P. Kirstetter and B. Yong.</p>
+        </div>
+      </article>
+
+      <article class="study no-figure">
+        <div class="study-text">
+          <h3>Water vapor from SEVIRI infrared channels</h3>
+          <p class="when">2017, CIMSS, University of Wisconsin–Madison</p>
+          <p>I worked on adapting the GOES Sounder atmospheric profile algorithm to the SEVIRI imager to retrieve precipitable water vapor. The retrieval has two stages: a nonlinear regression trained on a large database of atmospheric profiles, then a physical retrieval that uses the PFAAST radiative transfer model.</p>
+          <p>Modeled and observed brightness temperatures differ slightly, so the work included a bias correction for five infrared bands derived from matched profiles.</p>
+          <p class="source">Supported by China Scholarship Council award 201704910117 (principal investigator).</p>
+        </div>
+      </article>
+
+      <article class="study no-figure">
+        <div class="study-text">
+          <h3>Warm rain and marine boundary-layer clouds</h3>
+          <p class="when">2018 to 2023, ESSIC, University of Maryland</p>
+          <p>How much of the drizzle that forms in marine stratocumulus evaporates, and how much reaches the surface? Using ARM ground-based cloud radar, I examined how often these clouds drizzle and how drizzle scales with cloud thickness, within the evaporation and sedimentation framework that CloudSat rain retrievals also use.</p>
+          <p>Related work covered warm-rain processes from CloudSat and MODIS, and a warm-rain retrieval from VIIRS cloud properties on Suomi-NPP and NOAA-20. I also contributed to the EAST-AIRCPC synthesis on aerosols, clouds and precipitation (Li et al., 2019).</p>
+        </div>
+      </article>
+
+      <article class="study no-figure">
+        <div class="study-text">
+          <h3>Gauge-based daily precipitation analysis over China</h3>
+          <p class="when">2010 to 2013, Chinese Academy of Sciences</p>
+          <p>I worked on a daily precipitation analysis on a 0.25° grid for 1951 to 2010 from 2,419 quality-controlled gauges, built by optimal interpolation around a climatology adjusted with PRISM to correct orographic bias.</p>
+          <p>The analysis is reliable over eastern China, where stations are dense, and less so in the west, where values are interpolated from distant stations. That limit is what motivated adding satellite estimates in the variational work above.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="publications">
+    <div class="wrap">
+      <h2>Publications</h2>
+      <ul class="refs">
+        <li class="group">Journal articles</li>
+        <li>Li, H., Y. Hong, P. Xie, J. Gao, Z. Niu, P. Kirstetter, and B. Yong (2015). Variational merged of hourly gauge-satellite precipitation in China: Preliminary results. <cite>Journal of Geophysical Research: Atmospheres</cite>, 120, 9897–9915. <a href="https://doi.org/10.1002/2015JD023710">doi:10.1002/2015JD023710</a></li>
+        <li>Li, Z., and coauthors including H. Li (2019). East Asian Study of Tropospheric Aerosols and Impact on Regional Cloud, Precipitation and Climate (EAST-AIRCPC). <cite>Journal of Geophysical Research: Atmospheres</cite>.</li>
+        <li class="group">In preparation</li>
+        <li>Li, H. Marine warm-cloud drizzle life cycle from EarthCARE CPR and ARM ENA observations.</li>
+        <li class="group">Conference papers</li>
+        <li>Li, H., et al. (2016). Merged of gauge-satellite precipitation benefits to data-sparse regions and to extreme rainfall events. IEEE International Geoscience and Remote Sensing Symposium (IGARSS).</li>
+        <li>Li, H., Y. Hong, Z. Niu, et al. (2012). A new method for merged rainfall over China. 7th European Conference on Radar in Meteorology and Hydrology, Toulouse.</li>
+        <li>Li, H. (2007). Feature selection of spectral dimension by hyperspectral remote sensing images based on genetic algorithm and support vector machine. <cite>Proceedings of SPIE</cite> 6790, 679021.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap columns">
+      <div id="grants">
+        <h2>Grants and awards</h2>
+        <ul class="plain">
+          <li>Principal investigator, National Natural Science Foundation of China, grant 41501471: two-dimensional variational analysis of gauge and satellite precipitation <span class="yr">(2016 to 2018)</span></li>
+          <li>Principal investigator, International Postdoctoral Exchange Fellowship <span class="yr">(2017 to 2019)</span></li>
+          <li>Principal investigator, China Postdoctoral Science Foundation <span class="yr">(2015 to 2016)</span></li>
+          <li>Principal investigator, China Scholarship Council award 201704910117 <span class="yr">(2017)</span></li>
+          <li>Presentation Award, International Precipitation Working Group workshop <span class="yr">(2012)</span></li>
+          <li>Young Scientist travel grant, University of Bern <span class="yr">(2016)</span></li>
+          <li>Distinguished Graduate, Chinese Academy of Sciences <span class="yr">(2014)</span></li>
+        </ul>
+      </div>
+      <div id="education">
+        <h2>Education</h2>
+        <ul class="plain">
+          <li>Ph.D., Remote Sensing, Institute of Remote Sensing Applications, Chinese Academy of Sciences<br><span class="yr">Visiting Ph.D. student, University of Oklahoma, National Weather Center (2012 to 2013)</span></li>
+          <li>M.S., Remote Sensing and GIS, Southwest University <span class="yr">(2009)</span></li>
+          <li>B.S., Computer Science, Southwest University <span class="yr">(2006)</span></li>
+          <li>Graduate coursework in data science, Johns Hopkins University <span class="yr">(2024 to 2025)</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Huan Li, <a href="mailto:Dr.LiHuan@gmail.com">Dr.LiHuan@gmail.com</a></span>
+    <span>Last updated September 2026</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var canvas = document.getElementById('curtain');
+  if (!canvas || !canvas.getContext) return;
+  var ctx = canvas.getContext('2d');
+  var SCALE = ['#CFE3E8', '#8EC3CC', '#4E9FAE', '#1B6F86', '#D9B44A', '#C9822B']; // weak -> strong echo
+  var ZMAX = 2.1; // km shown
+
+  function prng(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+  function draw() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W = canvas.clientWidth, H = canvas.clientHeight;
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+
+    var left = 44, bottom = 22, top = 6;
+    var pw = W - left, ph = H - bottom - top;
+    var cw = 5, chh = 4;
+    var nx = Math.floor(pw / cw), nz = Math.floor(ph / chh);
+    var rnd = prng(20260919);
+
+    // cloud geometry along time
+    var topKm = [], thick = [];
+    for (var i = 0; i < nx; i++) {
+      var u = i / nx;
+      topKm.push(1.42 + 0.10 * Math.sin(u * 7.1 + 0.6) + 0.05 * Math.sin(u * 23 + 1.3));
+      thick.push(0.30 + 0.17 * (0.5 + 0.5 * Math.sin(u * 9.4 - 0.8)) + 0.05 * Math.sin(u * 31));
+    }
+    // drizzle shafts: start column, width, evaporation depth (km)
+    var shafts = [];
+    for (var s = 0; s < 46; s++) {
+      var c = Math.floor(rnd() * nx);
+      if (thick[c] < 0.36) continue; // only thicker cloud drizzles
+      var reaches = rnd() < 0.12;
+      shafts.push({ c: c, w: 2 + Math.floor(rnd() * 5), depth: reaches ? 2.0 : 0.25 + rnd() * 0.65, strength: 0.55 + rnd() * 0.45 });
+    }
+    var field = new Float32Array(nx * nz); // 0..1 echo strength
+    for (var i2 = 0; i2 < nx; i2++) {
+      var zt = topKm[i2], zb = zt - thick[i2];
+      for (var k = 0; k < nz; k++) {
+        var z = (k + 0.5) / nz * ZMAX;
+        if (z <= zt && z >= zb) {
+          var rel = (zt - z) / (zt - zb); // 0 at top, 1 at base
+          field[i2 * nz + k] = 0.28 + 0.38 * rel * (thick[i2] / 0.5) + 0.06 * rnd();
+        }
+      }
+    }
+    shafts.forEach(function (sh) {
+      for (var dx = 0; dx < sh.w; dx++) {
+        var col0 = sh.c + dx; if (col0 >= nx) continue;
+        var zb = topKm[col0] - thick[col0];
+        for (var k = 0; k < nz; k++) {
+          var z = (k + 0.5) / nz * ZMAX;
+          if (z >= zb) continue;
+          var fall = zb - z; if (fall > sh.depth) continue;
+          var col = col0 + Math.round(fall * 9); // wind shear tilts the streak
+          if (col >= nx) continue;
+          var v = sh.strength * (0.78 - 0.62 * fall / sh.depth) * (0.85 + 0.3 * rnd());
+          var idx = col * nz + k;
+          if (v > field[idx]) field[idx] = v;
+        }
+      }
+    });
+
+    for (var i3 = 0; i3 < nx; i3++) {
+      for (var k3 = 0; k3 < nz; k3++) {
+        var v3 = field[i3 * nz + k3]; if (v3 <= 0.02) continue;
+        var bin = Math.max(0, Math.min(SCALE.length - 1, Math.floor(v3 * SCALE.length)));
+        ctx.fillStyle = SCALE[bin];
+        ctx.fillRect(left + i3 * cw, top + ph - (k3 + 1) * chh, cw - 0.6, chh - 0.6);
+      }
+    }
+
+    // axes: height in km, sea surface line
+    ctx.strokeStyle = '#C5D0D5'; ctx.fillStyle = '#4A5A66'; ctx.lineWidth = 1;
+    ctx.font = '12px "Public Sans", system-ui, sans-serif'; ctx.textBaseline = 'middle'; ctx.textAlign = 'right';
+    [0, 0.5, 1.0, 1.5, 2.0].forEach(function (zk) {
+      var y = top + ph - zk / ZMAX * ph;
+      ctx.beginPath(); ctx.moveTo(left - 5, y + 0.5); ctx.lineTo(left, y + 0.5); ctx.stroke();
+      ctx.fillText(zk.toFixed(1), left - 9, y);
+    });
+    ctx.beginPath(); ctx.moveTo(left, top + ph + 0.5); ctx.lineTo(W, top + ph + 0.5); ctx.strokeStyle = '#14212B'; ctx.stroke();
+    ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+    ctx.fillText('height, km', 0, top + ph + 6);
+    ctx.textAlign = 'right';
+    ctx.fillText('time', W, top + ph + 6);
+  }
+
+  var t; window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(draw, 150); });
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(draw); }
+  draw();
+})();
+</script>
+</body>
+</html>
