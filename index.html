@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Huan Li | Precipitation and Cloud from Space</title>
+<meta name="description" content="Huan Li studies precipitation and warm clouds with satellites and radar: variational precipitation analysis, infrared retrievals, and drizzle from EarthCARE, GPM and ARM observations.">
+<link rel="canonical" href="https://geo-sci.org/">
+<meta property="og:title" content="Huan Li | Precipitation references: gauges, ground radar and spaceborne radar">
+<meta property="og:description" content="Building the references that satellite precipitation estimates are judged against, and finding what satellites miss.">
+<meta property="og:url" content="https://geo-sci.org/">
+<link rel="icon" type="image/png" href="data:image/png;base64,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IQIAAABCBAAAAIQIAAAACBEAAAAQIgAAACBEAAAAQIgAAACAEAEAAAAhAgAAAEIEAAAAhAgAAAAIEQAAABAiAAAAIEQAAABAiAAAAIAQAQAAACECAAAAQgQAAACECAAAAAgRAAAAECIAAAAgRAAAAECIAAAAgBABAAAAIQIAAABCBAAAAIQIAAAACBEAAAAQIgAAACBEAAAAQIgAAACAEAEAAAAhAgAAAEIEAAAAhAgAAAAIEQAAABAiAAAAIEQAAABAiAAAAIAQAQAAACECAAAAQgQAAACECAAAAAgRAAAAECIAAAAgRAAAAECIAAAAgBABAAAAIQIAAABCBAAAAIQIAAAACBEAAAAQIgAAACBEAAAAQIgAAACAEAEAAAAhAgAAAEIEAAAAhAgAAAAIEQAAABAiAAAAIEQAAABAiAAAAIAQAQAAACECAAAAQgQAAACECAAAAAgRAAAAECIAAAAgRAAAAECIAAAAgBABAAAAIQIAAABCBAAAAIQIAAAACBEAAAAQIgAAACBEAAAAQIgAAACAEAEAAAAhAgAAAEIEAAAAhAgAAAAIEQAAABAiAAAAIEQAAABAiAAAAIAQAQAAACECAAAAQgQAAACECAAAAAgRAAAAECIAAAAgRAAAAECIAAAAgBABAAAAIQIAAABCBAAAAIQIAAAACBEAAAAQIgAAACBEAAAAQIgAAACAEAEAAAAhAgAAAEIEAAAAhAgAAAAIEQAAABAiAAAAIEQAAABAiAAAAIAQAQAAACECAAAAQgQAAACECAAAAAgRAAAAECIAAAAgRAAAAECIAAAAgBABAAAAIQIAAABCBAAAAIQIAAAACBEAAAAQIgAAACBEAAAAQIgAAACAEAEAAAAhAgAAAEIEAAAAhAgAAAAIEQAAABAiAAAAIEQAAABAiAAAAIAQAQAAACECAAAAQgQAAACECAAAAAgRAAAAECIAAAAgRAAAAECIAAAAgBABAAAAIQIAAABCBAAAAIQIAAAACBEAAAAQIgAAACBEAAAAQIgAAACAEAEAAAAh/wEAAP//a0KwXgAAAAZJREFUAwC4Eg61VI4QiAAAAABJRU5ErkJggg==">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+    --ink: #14212B;
+    --ink-soft: #4A5A66;
+    --overcast: #E9EEF0;
+    --paper: #F8FAFA;
+    --marine: #1B6F86;
+    --marine-deep: #12303F;
+    --virga: #C9822B;
+    --rule: #C5D0D5;
+    --serif: "Spectral", Georgia, "Times New Roman", serif;
+    --sans: "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    --measure: 64ch;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--overcast); color: var(--ink);
+    font-family: var(--sans); font-size: 1.0625rem; line-height: 1.6;
+  }
+  a { color: var(--marine); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+  a:hover { color: var(--marine-deep); }
+  a:focus-visible, .skip:focus-visible { outline: 3px solid var(--virga); outline-offset: 3px; border-radius: 2px; }
+  .skip { position: absolute; left: -999px; top: 0; background: var(--paper); padding: .5rem .75rem; }
+  .skip:focus { left: .5rem; top: .5rem; z-index: 10; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+
+
+  /* Hero: schematic radar curtain */
+  .curtain { background: var(--paper); border-bottom: 1px solid var(--rule); }
+  .curtain .wrap { padding-top: 1.75rem; padding-bottom: 1rem; }
+  .curtain-frame { position: relative; }
+  .curtain canvas { display: block; width: 100%; height: 250px; }
+  .curtain-reveal { clip-path: inset(0 0 0 0); animation: sweep 1.9s cubic-bezier(.2,.6,.2,1) both; }
+  @keyframes sweep { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+  @media (prefers-reduced-motion: reduce) { .curtain-reveal { animation: none; } html { scroll-behavior: auto; } }
+  .curtain figcaption { margin-top: .5rem; color: var(--ink-soft); font-size: .875rem; max-width: 78ch; }
+
+  /* Identity */
+  .identity { padding-top: 2.75rem; padding-bottom: 2.5rem; }
+  .identity-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2rem 3rem; align-items: start; }
+  h1 { font-family: var(--serif); font-weight: 300; font-size: clamp(2.7rem, 6.2vw, 4.4rem); line-height: 1.02; letter-spacing: -0.015em; margin: 0 0 1rem; }
+  .lead { font-family: var(--serif); font-size: clamp(1.2rem, 2.1vw, 1.45rem); line-height: 1.45; max-width: 40ch; margin: 0 0 .9rem; }
+  .where { color: var(--ink-soft); margin: 0; }
+  .links { list-style: none; margin: .4rem 0 0; padding: 0; display: grid; gap: .45rem; font-weight: 500; }
+  .about-row { display: grid; grid-template-columns: minmax(0, var(--measure)) 300px; gap: 2rem 3rem; align-items: start; margin: 2rem 0 0; }
+  .about { max-width: var(--measure); margin: 0; }
+  .portrait { margin: 0; }
+  .portrait img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); }
+
+  nav.sections { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); background: var(--overcast); position: sticky; top: 0; z-index: 5; }
+  nav.sections ul { list-style: none; margin: 0; padding: .7rem 0; display: flex; flex-wrap: wrap; gap: .35rem 1.6rem; font-size: .95rem; }
+  nav.sections a { text-decoration: none; color: var(--ink); }
+  nav.sections a:hover { color: var(--marine); text-decoration: underline; }
+
+  section { padding: 3rem 0 1rem; }
+  h2 { font-family: var(--serif); font-weight: 500; font-size: 1.85rem; line-height: 1.15; margin: 0 0 1.6rem; }
+  h3 { font-family: var(--serif); font-weight: 500; font-size: 1.35rem; line-height: 1.25; margin: 0 0 .25rem; }
+
+  .study { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .92fr); gap: 1.5rem 3rem; padding: 2rem 0; border-top: 1px solid var(--rule); align-items: start; }
+  .study:first-of-type { border-top: 0; padding-top: 0; }
+  .study.no-figure { grid-template-columns: minmax(0, 1fr); }
+  .study-text { max-width: var(--measure); }
+  .study .when { color: var(--ink-soft); font-size: .95rem; margin: 0 0 .9rem; }
+  .study p { margin: 0 0 .9rem; }
+  .study .source { font-size: .95rem; color: var(--ink-soft); }
+  .study figure { margin: 0; }
+  .figures { display: grid; gap: 1.5rem; align-content: start; }
+  .figures.pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .plate { background: #fff; border: 1px solid var(--rule); padding: .6rem; }
+  .plate img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+  .study figcaption { margin-top: .55rem; font-size: .875rem; color: var(--ink-soft); }
+
+  .columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 3rem; }
+  .refs { list-style: none; margin: 0; padding: 0; max-width: 78ch; }
+  .refs li { margin: 0 0 1rem; padding-left: 1.4rem; text-indent: -1.4rem; }
+  .refs .group { font-family: var(--serif); font-size: 1.1rem; font-weight: 500; text-indent: 0; padding-left: 0; margin-top: 1.6rem; }
+  .plain { list-style: none; margin: 0; padding: 0; }
+  .plain li { margin: 0 0 .7rem; }
+  .plain .yr { color: var(--ink-soft); }
+
+  footer { margin-top: 3rem; border-top: 1px solid var(--rule); background: var(--paper); }
+  footer .wrap { padding-top: 2rem; padding-bottom: 2.5rem; display: flex; flex-wrap: wrap; gap: .5rem 2rem; justify-content: space-between; color: var(--ink-soft); font-size: .95rem; }
+
+  @media (max-width: 820px) {
+    .about-row { grid-template-columns: minmax(0, 1fr); }
+    .portrait { max-width: 300px; }
+    .identity-grid, .study, .columns { grid-template-columns: minmax(0, 1fr); }
+    .links { display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; }
+    .curtain canvas { height: 180px; }
+    nav.sections { position: static; }
+  }
+
+  .thread-intro { max-width: var(--measure); margin: 0 0 1.2rem; }
+  .table-scroll { overflow-x: auto; }
+  table.thread { border-collapse: collapse; width: 100%; font-size: .95rem; }
+  table.thread th, table.thread td { text-align: left; vertical-align: top; padding: .55rem .9rem .55rem 0; border-bottom: 1px solid var(--rule); }
+  table.thread th { font-family: var(--sans); font-weight: 600; font-size: .82rem; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-soft); }
+  table.thread td:first-child { white-space: nowrap; color: var(--ink-soft); }
+  .frame { font-size: .92rem; color: var(--ink-soft); margin: 0 0 .9rem; }
+  .frame span { font-family: var(--sans); font-weight: 600; font-size: .78rem; letter-spacing: .05em; text-transform: uppercase; color: var(--marine); margin-right: .35rem; }
+  .frame span + span, .frame span:nth-of-type(2) { margin-left: .9rem; }
+</style>
+</head>
+<body>
+<a class="skip" href="#research">Skip to research</a>
+
+<header>
+  <div class="curtain">
+    <div class="wrap">
+      <figure style="margin:0">
+        <div class="curtain-frame curtain-reveal">
+          <canvas id="curtain" role="img" aria-label="Schematic time–height radar view of a marine stratocumulus layer about 1.2 to 1.5 kilometers above the sea. Streaks of drizzle fall from the thicker parts of the cloud and fade out before reaching the surface."></canvas>
+        </div>
+        <figcaption>A marine stratocumulus deck as a vertically pointing cloud radar sees it over a few hours. Drizzle forms in the thicker parts of the cloud, and most of it evaporates before it reaches the sea surface.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="wrap identity">
+    <div class="identity-grid">
+      <div>
+        <h1>Huan Li, PhD</h1>
+        <p class="lead">I study rain and clouds from space: how satellites estimate precipitation, where those estimates fail, how aerosols and the marine boundary layer shape warm-cloud light rain, and what becomes of the drizzle satellite miss, most of which evaporates before it reaches the surface.</p>
+        <p class="where">Remote sensing scientist, College Park, MD</p>
+      </div>
+      <ul class="links" aria-label="Contact and profiles">
+       <!-- Add when ready:
+        <li><a href="mailto:huan.li@geo-sci.org">Email</a></li>
+        <li><a href="https://github.com/HuanLi-GeoSci">GitHub</a></li>
+       
+        <li><a href="https://orcid.org/0000-0000-0000-0000">ORCID</a></li>
+        <li><a href="CV_Huan_Li.pdf">CV (PDF)</a></li>
+        -->
+      </ul>
+    </div>
+
+    <div class="about-row">
+      <p class="about">
+        My research began with rain-gauge observations and developed a variational scheme merging gauge and satellite precipitation; then characterized the error structure of the satellite products IMERG, TMPA, CMORPH, and GSMaP over Tibetan Plateau. It next turn to warm-cloud light rain that passive sensors often miss, first detecting it with CloudSat, MODIS, and VIIRS and then quantifying its aerosol and marine boundary-layer controls with ARM ENA ground-based radar. It now combines EarthCARE CPR, the first spaceborne Doppler cloud radar, with ARM ENA radar to close the observational gap in the drizzle life cycle below the CPR clutter floor, and validates retrieved fall speeds and vertical air motion against NEXRAD dual-Doppler retrievals. I hold a Ph.D. in remote sensing from the Chinese Academy of Sciences and a B.S. in computer science.</p>
+
+      <figure class="portrait">
+        <img src="images/huan-li-photo.jpg" width="467" height="372" alt="Huan Li at the Testudo statue in front of McKeldin Library, University of Maryland." onerror="this.closest('figure').style.display='none'">
+      </figure>
+    </div>
+  </div>
+</header>
+
+<nav class="sections" aria-label="Sections">
+  <div class="wrap">
+    <ul>
+      <li><a href="#thread">One question</a></li>
+      <li><a href="#research">Research</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <section id="thread">
+    <div class="wrap">
+<h2>One question, six stages</h2>
+<div class="table-scroll">
+<table class="thread">
+  <thead><tr><th>Years</th><th>Focus</th><th>Data &amp; methods</th><th>Question and finding</th></tr></thead>
+  <tbody>
+    <tr><td>2026–</td><td>Air motion and fall speed in EarthCARE Doppler observations</td><td>EarthCARE CPR; NEXRAD dual-Doppler winds; ARM SGP disdrometers</td><td>Can satellite-only methods separate air motion from fall speed? In quiet stratiform cloud, the ESA C-CD and DPR-based fall speeds hold. In convection, C-CD absorbs the air motion up to ~1.8 m s⁻¹, and the JAXA CPR_CLP fall speed is 3 m s⁻¹ too small in rain; the DPR-based method fails in high, cold snow.</td></tr>
+    <tr><td>2025–</td><td>Marine warm-cloud drizzle life cycle</td><td>~201 EarthCARE CPR overpasses; ARM ENA cloud radar, 1,585 radiosondes, ERA5; cloud regime classification</td><td>What sets how much drizzle forms, and whether it lands? Cloud-top height and LWP set generation; cloud-base drop size and sub-cloud depth set its fate.</td></tr>
+    <tr><td>2018–2023</td><td>Warm rain and marine boundary-layer clouds</td><td>Eleven years of ARM ENA cloud radar; CloudSat, MODIS, VIIRS; VIIRS–CloudSat collocation</td><td>How often do marine cloud warm rain, and what controls it? Drizzle scales with cloud thickness; warm-rain occurrence depends on effective radius and LWP.</td></tr>
+    <tr><td>2015–2016</td><td>Satellite precipitation errors over land</td><td>IMERG, GSMaP, CMORPH and TMPA against gauges and ground radar, over Tibetan Plateau</td><td>How do satellite errors vary with rain rate, terrain, season, and gauge density?</td></tr>
+    <tr><td>2012–2016</td><td>Merging hourly satellite and gauge precipitation</td><td>Hourly CMORPH and gauges over China; two-dimensional variational analysis, with the satellite error setting the weights</td><td>Can satellite data fill the gaps between gauges? The merged analysis improves data-sparse regions and extreme rainfall.</td></tr>
+    <tr><td>2011</td><td>Daily gauge precipitation analysis over China</td><td>2,419 gauges, optimal interpolation on a 0.25° grid, 1951–2010</td><td>How well can sparse gauges resolve orographic rain in the west?</td></tr>
+  </tbody>
+</table>
+</div>
+
+    </div>
+  </section>
+
+  <section id="research">
+    <div class="wrap">
+      <h2>Research</h2>
+
+      <article class="study">
+        <div class="study-text">
+          <h3>Air motion and fall speed in EarthCARE Doppler observations</h3>
+          <p class="subtitle">A ground-based dual-Doppler reference along the satellite track, used to test three satellite-only decompositions</p>
+          <p class="when">2025 to present, independent research</p>
+          <p class="frame"><span>Reference</span> NEXRAD dual-Doppler winds along the EarthCARE track <span>VALIDATED</span> ESA C-CD, JAXA CPR_CLP and DPR-based fall speeds</p>
+
+          <p>
+          EarthCARE's cloud radar is the first Doppler radar in space. Its nadir beam measures air motion and hydrometeor fall speed together, and cannot separate them, and none of the three published satellite-only fall speed (ESA C-CD, JAXA CPR_CLP, DPR-PSD-assumed decomposition) had been tested against an independent measurement.</p>   
+
+          <p>I built a ground-based dual-Doppler reference for vertical air motion along eight CPR tracks (PyDDA variational and explicit CEDRIC-type methods) from pairs of NEXRAD radars, cross-checked by two independent solvers: accurate to 0.65 m s⁻¹ in stratiform cloud and 1–2.3 m s⁻¹ in convection. And used it to evaluate the ESA C-CD, JAXA CPR_CLP and DPR-PSD-based fall-speed decompositions.  </p>    
+
+        <p>The ESA C-CD sedimentation velocity agrees with the   reference-corrected fall speed to 0.45 m s⁻¹ where |<i>w</i>| &lt; 0.5 m s⁻¹ and retains the air motion up to |<i>w</i>| ≈ 1.5 m s⁻¹. The JAXA CPR_CLP product assigns cloud-particle fall speeds 3 m s⁻¹ too small in rain and 0.5 m s⁻¹ in ice, so its air velocity is 1.1 m s⁻¹ too high and uncorrelated with the reference. The PSD-assumed decomposition is unbiased inside its stated snow range but biased by +0.7 to +2 m s⁻¹ above it and, on weaker evidence, by +3 to +4 m s⁻¹ in light rain at the DPR sensitivity floor. A disdrometer-derived W-band fall speed at the ARM Southern Great Plains site agrees with the C-CD sedimentation velocity to 0.3 m s⁻¹.</p>
+
+
+          <p class="source">Li, H., 2026: Ground-based dual-Doppler validation of vertical air motion and hydrometeor fall speed in EarthCARE CPR Doppler observations. in preparation for <cite>Atmospheric Measurement Techniques</cite>.</p>
+        </div>
+
+      <div class="figures">
+        <figure>
+          <div class="plate"><img src="images/*.jpg" loading="lazy" alt="Eight maps of radar reflectivity with the EarthCARE track and the pair of NEXRAD radars marked for each case." onerror="this.closest('figure').style.display='none'"></div>
+          <figcaption>ESA C-CD sedimentation velocity against the dual-Doppler reference, eight cases pooled (64,811 bins). The air motion left inside the product grows almost one-for-one with the reference air motion up to ~1.5 m s⁻¹ and saturates near 1.8 m s⁻¹.</figcaption>
+        </figure> 
+
+        <figure>
+          <div class="plate"><img src="images/case_cards.png" loading="lazy" alt="Eight maps of radar reflectivity with the EarthCARE track and the pair of NEXRAD radars marked for each case." onerror="this.closest('figure').style.display='none'"></div>
+          <figcaption>The eight cases: composite reflectivity at overpass time, the EarthCARE track segment and the NEXRAD pair used for the dual-Doppler retrieval.</figcaption>
+        </figure>
+
+        <figure>
+          <div class="plate"><img src="images/judges_multi.jpg" loading="lazy" alt="Eight panels, one per case, comparing the dual-Doppler retrieved velocity profile with the EarthCARE CPR Doppler solution." onerror="this.closest('figure').style.display='none'"></div>
+          <figcaption>Two independent dual-Doppler solvers on the EarthCARE track, seven cases. Top: vertical air motion from the explicit solver against the variational (PyDDA) solver, with the 1:1 line; each title gives the number of bins, the median difference, the interquartile range (IQR) and the correlation. Bottom: the median difference by height, with its IQR shaded. The solvers agree to an IQR of 0.5 m s⁻¹ in quiescent stratiform cloud (C3) and 1.5–1.9 m s⁻¹ in convection.</figcaption>
+        </figure>
+
+         <figure>
+          <div class="plate"><img src="images/sgp_direct.jpg" loading="lazy" alt="Eight panels, one per case, comparing the dual-Doppler retrieved velocity profile with the EarthCARE CPR Doppler solution." onerror="this.closest('figure').style.display='none'"></div>
+          <figcaption>Validation at the ARM Southern Great Plains site (case C2): Doppler velocity, fall speed and air motion from EarthCARE and the ground cloud radar, with disdrometer fall speeds at the surface. In the 1–3 km layer the C-CD fall speed lies within 0.3 m s⁻¹ of the disdrometer value.</figcaption>
+        </figure>
+
+      </div>
+
+      </article>
+
+      <article class="study">
+        <div class="study-text">
+          <h3>Marine warm-cloud drizzle life cycle</h3>
+          <p class="subtitle">An EarthCARE Doppler view, validated at ARM ENA: generation → sub-cloud evaporation → surface fallout or virga</p>
+          <p class="when">2025 to present, College Park, MD</p>
+          <p class="frame"><span>Reference</span> ARM ENA cloud radar, radiometer and 1,585 radiosondes <span>Tested</span> EarthCARE CPR overpasses</p>
+      
+          <p>EarthCARE carries the first Doppler cloud radar in space, but it cannot see the lowest ~0.5 km above the sea, where most marine drizzle evaporates. With 201 overpasses of the ARM Eastern North Atlantic site (Dec 2024–May 2026), checked against the ground radar and 1,585 radiosondes, and  sorted overpasses into four cloud regimes by an ω₅₀₀–cold-air-outbreak–EIS decision tree. </p>
+            
+          <p>I show that the satellite and the ground site see different halves of the drizzle life cycle. Cloud-top height and liquid water path, both observable from orbit, control how much drizzle forms; cloud-base drop size and sub-cloud depth, visible only from the ground, decide whether it reaches the sea. Satellite-only drizzle climatologies therefore map where drizzle forms, not where it lands. In warm liquid cloud, EarthCARE's air-motion-corrected fall speeds from all four weather regimes collapse onto a single power law, <i>V</i><sub>t</sub> = 1.58 <i>Z</i><sub>e</sub><sup>0.205</sup>.
+          </p>
+
+          
+          <p>Drizzle generation turns out to be set by cloud-top height and LWP (β = 0.51, 0.34; R² = 0.38), both visible from space; its fate, mostly virga, by cloud-base drop size and sub-cloud depth below the CPR clutter floor, mostly evaporation before reaching the sea, is decided below the satellite's clutter floor, where only the ground site sees, so that satellite and ground site together close a drizzle life cycle neither observes alone. </p>
+
+
+          <p class="source">First-author manuscript submitted to <cite>Atmospheric Chemistry and Physics</cite>.</p>
+        </div>
+        <div class="figures">
+
+          <figure>
+            <div class="plate"><img src="images/drizzle_lifecycle.png" loading="lazy" alt="Time-height plot of cloud radar reflectivity through a drizzling stratocumulus layer with cloud base and top marked." onerror="this.closest('figure').style.display='none'"></div>
+            <figcaption>Drizzle below cloud base at the ARM site (~680,000 ground-radar profiles). Drizzle that reaches the surface leaves the cloud near +16 to +20 dBZ and falls almost unchanged; virga leaves near +1 dBZ and its echo collapses by ~28 dB per km as it evaporates. Lines mark the lowest level CloudSat, EarthCARE and the ground radar can see.</figcaption>
+          </figure>
+
+           <figure>
+            <div class="plate"><img src="images/s3_vd_ze_2panel.png" loading="lazy" alt="Map of EarthCARE ground tracks passing the ARM Eastern North Atlantic site on Graciosa Island." onerror="this.closest('figure').style.display='none'"></div>
+            <figcaption>EarthCARE terminal fall speed versus reflectivity in warm liquid, corrected for air motion and Mie effects. (a) The medians of all four regimes collapse onto one power law, V_t = 1.58 Z_e^0.205. (b) The same law in drop-size space, where it points to growth by collision–coalescence.</figcaption>
+          </figure>
+
+          <figure>
+            <div class="plate"><img src="images/curtain_gallery.png" loading="lazy" alt="Map of EarthCARE ground tracks passing the ARM Eastern North Atlantic site on Graciosa Island." onerror="this.closest('figure').style.display='none'"></div>
+            <figcaption>One EarthCARE overpass per regime (stratocumulus, cumulus/transition, cold-air outbreak, frontal): ATLID–CPR target classification (top), radar reflectivity (middle) and Doppler velocity (bottom).</figcaption>
+          </figure>
+
+        </div>
+      </article>
+
+
+
+      <article class="study">
+        <div class="study-text">
+          <h3>A drifting cloud radar: calibrating the ARM ENA Ka-band radar with ground disdrometers</h3>
+          <p class="when">2018 to 2023,Visiting Assistant Research Scientist, ESSIC, University of Maryland </p>
+
+        <p class="frame"><span>DATA</span>ARM <span>Calibrated</span> Ka-band Radar </p>
+
+          <p>The ARM Eastern North Atlantic radar has recorded marine low clouds and drizzle since 2015, but its long-term reflectivity files are labeled "not yet calibrated." Before using the record for drizzle science, I checked how far off the radar is and whether the error changes. I compared the radar's reflectivity at ~240 m with the Ka-band reflectivity computed from raindrops counted by two independent surface disdrometers, using light rain (0–20 dBZ) over 1,629 days (~380,000 one-minute pairs).</p>
+          
+          <p>The radar's reading drifted steadily low, by about 2 dB per year: near 0 dB in late 2015 and 9–10 dB low by the end of 2019. The two disdrometers agree month by month, so the drift is in the radar. The estimates reproduce the published calibrations of Kollias et al. (2019) to within 1–2 dB and cover April 2018 to December 2019, a period with no published calibration.</p>
+        </div>
+        <div class="figures">
+          <figure>
+            <div class="plate"><img src="images/ena_kazr_calibration_2015_2019.png" loading="lazy" alt="Scatter plots of calculated against observed brightness temperature for five SEVIRI infrared bands." onerror="this.closest('figure').style.display='none'"></div>
+            <figcaption>Monthly calibration offset of the ARM ENA Ka-band cloud radar (KAZR), July 2015 to December 2019, defined as Z<sub>disdrometer</sub> − Z<sub>KAZR</sub> (positive values mean the radar reads too low). The radar reflectivity is the ARSCL best estimate at 215–255 m above ground. The reference is the Ka-band reflectivity computed from drop size distributions measured at the surface by a laser disdrometer (blue) and a 2-D video disdrometer (orange). Offsets are monthly medians of one-minute pairs in light rain (0–20 dBZ), from 1,629 days and about 380,000 pairs. Grey bars show published estimates for the same periods (Kollias et al. 2019; Lamer et al. 2019), and the shaded area marks April 2018 to December 2019, for which no calibration has been published. The dashed line is a linear fit (+2.2 dB yr⁻¹). The two independent disdrometers agree month by month, so the drift is in the radar: its reading fell by about 2 dB per year and was 9–10 dB too low by late 2019.</figcaption>
+          </figure>
+        </div>
+      </article>
+
+
+      <article class="study">
+        <div class="study-text">
+          <h3>Warm-rain detection from CloudSat and VIIRS</h3>
+          <p class="when">2018 to 2023,Visiting Assistant Research Scientist, ESSIC, University of Maryland</p>
+          <p class="frame"><span>DATA</span>CloudSat, VIIRS<span>Detect</span> Warm Rain</p>
+  
+           <p>Warm rain dominates precipitation occurrence over the subtropical oceans but is largely missed by infrared and passive-microwave retrievals. I built a pipeline that collocates CloudSat radar with MODIS and VIIRS (~10⁵ rays matched within ±5 min）and tested whether retrieved cloud properties from visible and near-infrared imagery can detect warm rain. 
+           </p>
+
+          <p>Revisiting Chen et al. (2011) with MODIS, I found liquid water path (LWP) to be the best single predictor of warm rain (HSS 0.61, threshold ≈ 0.22 mm), outperforming cloud-top temperature. Adding effective radius
+          (<i>r</i><sub>e</sub>) helps further: at the same LWP, clouds with larger
+          droplets rain more readily (Figure).</p>
+            
+           <p>I then tested whether this approach carries over to VIIRS. A rain/no-rain rule in LWP–<i>r</i><sub>e</sub> space learned from 2008
+           MODIS transfers to 2016–17 VIIRS without refitting: HSS 0.52, compared with 0.49 for MODIS on the same collocated rays. Applied pixel by pixel, the rule produces full-swath VIIRS warm-rain maps, extending CloudSat's narrow curtain to the full imager swath.</p>
+           
+
+        </div>
+        <div class="figures">
+
+          <figure>
+            <div class="plate"><img src="images/lut_prain_viirs_vs_modis.png" loading="lazy" alt="Time-height plot of cloud radar reflectivity through a drizzling stratocumulus layer with cloud base and top marked." onerror="this.closest('figure').style.display='none'"></div>
+            <figcaption> Probability of warm rain as a function of cloud-top effective radius and liquid water path, observed by (a) VIIRS and (b) MODIS on the same CloudSat-collocated rays (ocean, July 2016 and January 2017, |Δt| ≤ 5 min, warm liquid clouds; N = 73,591, of which 5,571 raining; rain ≥ 0.05 mm h⁻¹). Colors show the rain probability observed in 2016–17. The solid line is a rain/no-rain rule (P = 33%) learned from MODIS and applied to VIIRS without refitting; the dashed line is the LWP-only threshold (227 g m⁻²). Both sensors show that, at fixed LWP, clouds with larger droplets rain more readily. Blank cells contain fewer than 30 samples.</figcaption>
+          </figure>
+
+        </div>
+      </article>
+
+
+
+      <article class="study">
+        <div class="study-text">
+          <h3>Retrieval of atmospheric water vapor from SEVIRI infrared</h3>
+          <p class="when">2017, Visiting Scholar, CIMSS, University of Wisconsin–Madison</p>
+          <p class="frame"><span>Retrieval</span> Atmospheric Water Vapor <span>Radiative Transfer</span> PFAAST</p>
+          <p>I contributed to adapting the GOES Sounder atmospheric profile algorithm to the SEVIRI imager to retrieve atmospheric water vapor: a regression trained on a database of atmospheric profiles, then a physical retrieval with the PFAAST radiative transfer model. </p>
+          
+          <p>Modeled and observed brightness temperatures differ slightly, so the work included a bias correction for five infrared bands derived from matched profiles, the same matchup analysis that underlies radiometer intercalibration.</p>
+        </div>
+        <div class="figures">
+          <figure>
+            <div class="plate"><img src="images/*.png" loading="lazy" alt="Scatter plots of calculated against observed brightness temperature for five SEVIRI infrared bands." onerror="this.closest('figure').style.display='none'"></div>
+            <figcaption>The comparison between the calculated and observed brightness temperatures at five IR bands for bias correction. In each panel the solid line represents the linear fitting and the dash line is the 1-to-1 line</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <article class="study">
+        <div class="study-text">
+          <h3>Error structure of satellite precipitation over Tibetan Plateau in Winter</h3>
+          <p class="when">2015 to 2016, Postdoctoral Fellow, Institute of Geographic Sciences and Natural Resources Research, Chinese Academy of Sciences; revisited in 2026 with the current product versions</p>
+
+          <p class="frame"><span>PI</span> Grant NSFC<span>Tested</span> IMERG, TMPA, CMORPH and GSMaP <span>Case</span> the snow-covered winter Plateau</p>
+          <p class="frame"><span>PI</span> Grant China Postdoctoral Science Foundation <span>Merged</span> Radar-satellite-gauge precipitation</p>
+
+          <p>The Tibetan Plateau in winter is a snow-covered, gauge-sparse surface where the retrievals are known to struggle. Four gauge-adjusted products (IMERG V07 Final, TMPA 3B43, CMORPH CDR, GSMaP Gauge) are put on one 0.25° grid and compared with their multi-product mean, GPCC gauges, PERSIANN-CDR(infrared-only)and  their own satellite-only versions. Cells above 3000 m are split by ERA5-Land snow cover into snow-free, intermittent and stable-snow classes that sit at the same mean elevation, so any difference between classes is a surface effect.
+          </p>
+
+          <p>Over the winter Plateau (cells above 3000 m, December 2014 to February 2015) the four products lie between 31 % below and 32 % above their common mean, with a median spread of 56 % against 26 % in summer. Each departs for a different reason. <strong>IMERG</strong> sees almost nothing (0.07 mm/day, 1 % wet days) and the gauge ratio multiplies it by 3.8: the Plateau value is GPCC's. <strong>TMPA</strong> TMPA sees too much: only 12 % of its amount is microwave, the rest is infrared over cold ground; the gauges halve it and it is still 32 % high. <strong>CMORPH</strong> is the most surface-sensitive, +13 % over bare ground and −27 % over stable snow, as microwave screening over snow propagates through the morphing. <strong>GSMaP</strong> is the driest (−31 %) and effectively unadjusted, its gauge calibration acting weakly where gauges are sparse.</p>
+
+          <p>What this means for retrieval. The gauge adjustment equalizes the products' totals but not their errors: at constant elevation all four still over-report on cold bare ground and under-report on snow. What the retrievals lose is the microwave signal, screened or down-weighted where frozen ground and snow look like precipitation to the radiometer, and infrared morphing cannot put it back. Improving winter precipitation over land therefore has to happen inside the retrieval, with a surface-dependent prior, the high-frequency channels, and reanalysis temperature and snow depth as ancillary inputs, rather than in the adjustment afterwards.</p>
+
+          <p class="source">Data: IMERG V07B, TMPA 3B43/3B42/3B42RT V7 (NASA GES DISC); CMORPH V1.0 CDR, PERSIANN-CDR, ETOPO 2022 and GHCN-Daily (NOAA NCEI); GSMaP V04B (JAXA); GPCC Full Data Monthly v2022 (DWD); ERA5-Land(Copernicus CDS).</p>
+        </div>
+
+        <div class="figures">
+          <figure>
+            <div class="plate"><img src="images/fig_tp_threecol_DJF.png" loading="lazy" alt="Fifteen maps in three columns for winter 2014/15: the four satellite products, their departures from the ensemble mean, and the spread and three references." onerror="this.closest('figure').style.display='none'"></div>
+            <figcaption>Winter 2014/15 (December 2014 to February 2015). Left: Tibetan Plateau terrain, gauges and the four products. Middle: the four-product mean and each product's departure from it (brown drier, teal wetter). Right: spread across products, GPCC, infrared-only PERSIANN-CDR, ERA5-Land. </figcaption>
+          </figure>
+
+          <figure>
+            <div class="plate"><img src="images/fig_tp_mechanism.png" loading="lazy" alt="Twelve panels in three columns: snow-cover classes, passive-microwave share of the IMERG and TMPA amounts, gauge-adjustment ratios, and summaries by snow class." onerror="this.closest('figure').style.display='none'"></div>
+            <figcaption>Why they disagree. Left: Cells above 3000 m split by ERA5-Land snow cover into snow-free, intermittent and stable-snow, all at the same mean elevation.
+              
+              Middle: its own microwave retrievals supplied, winter against summer, for the two products (IMERG V07 and TMPA).
+              
+              Right: gauge-adjusted ÷ satellite-only for each product. A ratio far from 1 means the value users get comes from the gauges, not the satellite; grey where the satellite-only value is too small to scale.
+
+              
+              <p>Bottom row, by snow class: departures from the gauge analysis; the winter amount split into microwave, infrared fill-in and gauge adjustment; and where the adjustment moves each product, from satellite-only (open circle) to gauge-adjusted (filled circle), with the GPCC analysis as a grey band. </p></figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <article class="study">
+        <div class="study-text">
+          <h3>Variational merging of hourly satellite precipitation and rain gauge over China</h3>
+          <p class="when">2010 to 2014, Ph.D. Institute of Remote Sensing Applications, Chinese Academy of Sciences</p>
+          <p class="when">2012 to 2013, Exchage scholarship. Naional Weather Center, University of Oklahoma</p>
+         
+          <p>I developed the variational scheme that merges hourly rain-gauge observations with NOAA CMORPH satellite estimates into a 0.1 latitude/longitude precipitation analysis over mainland China, working with Dr. Jidong Gao at NOAA's National Severe Storms Laboratory. The scheme minimizes a cost function with a recursive-filter background term that spreads gauge information to nearby grid points, with the gradient obtained by the adjoint technique and the minimization by a quasi-Newton method; I wrote the implementation in Fortran.（Li, 2015, JGR-Atmos）  </p>
+
+          <p>Cross-validation against withheld gauges showed that the analysis improves on satellite estimates, most of all where gauges are sparse. Satellite estimates capture heavy and extreme rainfall well but underestimate light rain; the merged analysis corrects the light-rain deficit where gauges exist and keeps the satellite's extreme-event rain structure where they do not (Li, 2016, IGARSS). </p>
+
+          <p class="source">Li et al. (2015), <a href="https://doi.org/10.1002/2015JD023710"><cite>Journal of Geophysical Research: Atmospheres</cite>, doi:10.1002/2015JD023710</a>. With Y. Hong, P. Xie (NOAA CPC), J. Gao (NOAA NSSL), Z. Niu, P. Kirstetter and B. Yong.</p>
+
+           <p class="source">Li, H (2016): Merged of gauge-satellite precipitation benefits to data-sparse regions and to extreme rainfall events. Proc. 2016 IEEE Int. Geosci. Remote Sens. Symp. (IGARSS), Beijing, doi:10.1109/IGARSS.2016.7729149.</a></p>
+
+        </div>
+        <div class="figures">
+          <figure>
+            <div class="plate"><img src="images/var-merge.png" loading="lazy" alt="Four maps of hourly precipitation over China: rain gauges, CMORPH, bias-adjusted CMORPH and the variational analysis." onerror="this.closest('figure').style.display='none'"></div>
+            <figcaption>Hourly precipitation at 01 UTC on 6 July 2009 from (a) rain gauges, (b) CMORPH, (c) bias-adjusted CMORPH and (d) the variational analysis. From Li et al. (2015), <cite>J. Geophys. Res. Atmos.</cite>, 120, 9897–9915. © 2015 American Geophysical Union.</figcaption>
+          </figure>
+
+          <figure>
+            <div class="plate"><img src="images/var-merge-2.png" loading="lazy" alt="Four maps of hourly precipitation over China: rain gauges, CMORPH, bias-adjusted CMORPH and the variational analysis." onerror="this.closest('figure').style.display='none'"></div>
+            <figcaption>extreme rainfall.</figcaption>
+          </figure>
+
+        </div>
+
+
+      </article>
+
+      <article class="study">
+        <div class="study-text">
+          <h3>Gauge-based daily rainfall products in China</h3>
+          <p class="when"> 2011, Research Intern, National Meteorological Information Center, China Meteorological Administration</p>
+
+          <p>Gauge-based daily rainfall products over China were constructed by optimal interpolation of 2,419 gauges on a 0.25 latitude/longitude grid for 1951–2010.</p>
+            
+          <p>The stations measure rainfall with siphon or tipping-bucket gauges, record automatically, and pass quality control. The precipitation climatology used by the interpolation is adjusted with the Parameter-Elevation Regressions on Independent Slopes Model (PRISM) to correct the bias caused by orographic effects. </p>
+          
+          <p>The analysis captures daily precipitation well over eastern China, where stations are relatively dense, while precipitation patterns may be distorted over western China, where analyzed values are interpolated from reports of distant stations.
+          </p>
+
+        </div>
+        <div class="figures">
+          <figure>
+            <div class="plate"><img src="images/gauge-analysis.png" loading="lazy" alt="Map of China showing the number of rain gauges per 0.25 degree grid box." onerror="this.closest('figure').style.display='none'"></div>
+            <figcaption>~2419 gauges density on the 0.25° rainfall products : dense in the east, sparse in the west</figcaption>
+          </figure>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Huan Li, <a href="mailto:huan.li@geo-sci.org">huan.li@geo-sci.org</a> · <a href="https://geo-sci.org/">geo-sci.org</a></span>
+    <span>Last updated 2026</span>
+  </div>
+</footer>
+<script>
+(function () {
+  var canvas = document.getElementById('curtain');
+  if (!canvas || !canvas.getContext) return;
+  var ctx = canvas.getContext('2d');
+  var SCALE = ['#CFE3E8', '#8EC3CC', '#4E9FAE', '#1B6F86', '#D9B44A', '#C9822B']; // weak -> strong echo
+  var ZMAX = 2.1; // km shown
+
+  function prng(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+  function draw() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W = canvas.clientWidth, H = canvas.clientHeight;
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+
+    var left = 44, bottom = 22, top = 6;
+    var pw = W - left, ph = H - bottom - top;
+    var cw = 5, chh = 4;
+    var nx = Math.floor(pw / cw), nz = Math.floor(ph / chh);
+    var rnd = prng(20260919);
+
+    // cloud geometry along time
+    var topKm = [], thick = [];
+    for (var i = 0; i < nx; i++) {
+      var u = i / nx;
+      topKm.push(1.42 + 0.10 * Math.sin(u * 7.1 + 0.6) + 0.05 * Math.sin(u * 23 + 1.3));
+      thick.push(0.30 + 0.17 * (0.5 + 0.5 * Math.sin(u * 9.4 - 0.8)) + 0.05 * Math.sin(u * 31));
+    }
+    // drizzle shafts: start column, width, evaporation depth (km)
+    var shafts = [];
+    for (var s = 0; s < 46; s++) {
+      var c = Math.floor(rnd() * nx);
+      if (thick[c] < 0.36) continue; // only thicker cloud drizzles
+      var reaches = rnd() < 0.12;
+      shafts.push({ c: c, w: 2 + Math.floor(rnd() * 5), depth: reaches ? 2.0 : 0.25 + rnd() * 0.65, strength: 0.55 + rnd() * 0.45 });
+    }
+    var field = new Float32Array(nx * nz); // 0..1 echo strength
+    for (var i2 = 0; i2 < nx; i2++) {
+      var zt = topKm[i2], zb = zt - thick[i2];
+      for (var k = 0; k < nz; k++) {
+        var z = (k + 0.5) / nz * ZMAX;
+        if (z <= zt && z >= zb) {
+          var rel = (zt - z) / (zt - zb); // 0 at top, 1 at base
+          field[i2 * nz + k] = 0.28 + 0.38 * rel * (thick[i2] / 0.5) + 0.06 * rnd();
+        }
+      }
+    }
+    shafts.forEach(function (sh) {
+      for (var dx = 0; dx < sh.w; dx++) {
+        var col0 = sh.c + dx; if (col0 >= nx) continue;
+        var zb = topKm[col0] - thick[col0];
+        for (var k = 0; k < nz; k++) {
+          var z = (k + 0.5) / nz * ZMAX;
+          if (z >= zb) continue;
+          var fall = zb - z; if (fall > sh.depth) continue;
+          var col = col0 + Math.round(fall * 9); // wind shear tilts the streak
+          if (col >= nx) continue;
+          var v = sh.strength * (0.78 - 0.62 * fall / sh.depth) * (0.85 + 0.3 * rnd());
+          var idx = col * nz + k;
+          if (v > field[idx]) field[idx] = v;
+        }
+      }
+    });
+
+    for (var i3 = 0; i3 < nx; i3++) {
+      for (var k3 = 0; k3 < nz; k3++) {
+        var v3 = field[i3 * nz + k3]; if (v3 <= 0.02) continue;
+        var bin = Math.max(0, Math.min(SCALE.length - 1, Math.floor(v3 * SCALE.length)));
+        ctx.fillStyle = SCALE[bin];
+        ctx.fillRect(left + i3 * cw, top + ph - (k3 + 1) * chh, cw - 0.6, chh - 0.6);
+      }
+    }
+
+    // axes: height in km, sea surface line
+    ctx.strokeStyle = '#C5D0D5'; ctx.fillStyle = '#4A5A66'; ctx.lineWidth = 1;
+    ctx.font = '12px "Public Sans", system-ui, sans-serif'; ctx.textBaseline = 'middle'; ctx.textAlign = 'right';
+    [0, 0.5, 1.0, 1.5, 2.0].forEach(function (zk) {
+      var y = top + ph - zk / ZMAX * ph;
+      ctx.beginPath(); ctx.moveTo(left - 5, y + 0.5); ctx.lineTo(left, y + 0.5); ctx.stroke();
+      ctx.fillText(zk.toFixed(1), left - 9, y);
+    });
+    ctx.beginPath(); ctx.moveTo(left, top + ph + 0.5); ctx.lineTo(W, top + ph + 0.5); ctx.strokeStyle = '#14212B'; ctx.stroke();
+    ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+    ctx.fillText('height, km', 0, top + ph + 6);
+    ctx.textAlign = 'right';
+    ctx.fillText('time', W, top + ph + 6);
+  }
+
+  var t; window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(draw, 150); });
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(draw); }
+  draw();
+})();
+</script>
+</body>
+</html>
